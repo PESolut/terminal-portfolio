@@ -1,0 +1,28 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+html, body, #root {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border-radius: 0
+  }
+
+
+  
+.terminal {
+    background-color: #1e1e1e;
+    height: 100vh;
+    color: #00ff88;
+    font-family: "Courier New", Courier, monospace;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 255, 136, 0.2);
+    border-radius: 0
+  }
+
+
