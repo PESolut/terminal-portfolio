@@ -1,6 +1,6 @@
 export const navigationData = [
     {
-        name: "home",
+        name: "/home",
         path: "/",
         isActive: true,
         icon: null,
@@ -9,7 +9,7 @@ export const navigationData = [
       },
     },
     {
-        name: "projects",
+        name: "/projects",
         path: "/projects",
         isActive: false,
         icon: null,
@@ -18,7 +18,7 @@ export const navigationData = [
         },
     },
     {
-        name: "about",
+        name: "/about",
         path: "/about",
         isActive: false,
         icon: null,

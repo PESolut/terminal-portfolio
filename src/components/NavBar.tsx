@@ -2,6 +2,8 @@ import React from "react";
 import NavBarItem from "./NavBarItem";
 import { navigationData } from './data/navigation'
 import type { NavigationProps } from './NavBarItem';
+import "./NavBar.css";
+
 
 
 const NavBar: React.FC = () => {
@@ -16,3 +18,4 @@ const NavBar: React.FC = () => {
 };
 
 export default NavBar;
+

@@ -1,0 +1,23 @@
+.navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem
+}
+
+
+/*
+
+Quick flex refresher (for me or whoever’s reading this later):
+
+  - `justify-content` handles how items are spaced along the main axis
+    (which defaults to horizontal unless you change `flex-direction`).
+
+    Think of it like text alignment—left, center, spaced out, etc.
+
+  - `align-items` handles how stuff lines up *along the cross axis* 
+    (basically the opposite direction of your main one).
+
+  The axis changes depending on what you set `flex-direction` to,
+  so keep that in mind when centering things.
+*/
