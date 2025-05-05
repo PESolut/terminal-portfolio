@@ -1,4 +1,5 @@
 import React from "react";
+import './Header.css'
 
 export type HeaderProps = {
     // The '?' symbol after each property indicates that the property is optional
@@ -13,7 +14,7 @@ const Header: React.FC<HeaderProps> = ({name ='Jahaad Petty', username='pesolut'
     */
   return (
     <div className="header">
-        <h1>{username}</h1>
+        <h1>{username}:$</h1>
     </div>
   );
 };
