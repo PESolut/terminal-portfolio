@@ -25,7 +25,7 @@ const Terminal: React.FC = () => {
     setLines(initialLines);
 
     const testLines: LineData[] = [
-      { text: `${'M'.repeat(2343)}`, type: "animated" },
+      // { text: `${'M'.repeat(2343)}`, type: "animated" },
     ];
     setLines(prevLines => [...prevLines, ...testLines])
   }, []);
