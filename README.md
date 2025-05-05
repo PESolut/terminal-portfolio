@@ -2,7 +2,7 @@
 Built with the React, this single-page application presents a software engineer’s profile through a UNIX-style terminal interface. It features dynamic, window-like modals for additional pages, including About, Contact, and Projects(POST MVP).
 
 ### Line Component (Current Update)
-The `Line` component now dynamically renders lines of text, which can either be static or animated. Each line is wrapped according to the screen size, preventing overflow. The text is typed out character by character to simulate a typing effect, making the terminal feel more interactive.
+The `Line` component now dynamically renders lines of text, which can either be static or animated. Each line is wrapped according to the screen size, preventing overflow. The text *will* typed out character by character to simulate a typing effect, making the terminal feel more interactive.
 
 ### Ruler Component (Current Update)
 The `Ruler` component is responsible for measuring the screen width and calculating the number of characters that fit within the terminal window. It uses a hidden span to determine the width of a single character and then dynamically calculates the maximum character count per line.
