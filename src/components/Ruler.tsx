@@ -19,7 +19,7 @@ const Ruler: React.FC<RulerProps> = ({onMeasure}) => {
         onMeasure(charLimit)
     }, [])
   return (
-    <div className="ruler">
+    <div className="ruler" style={{ visibility: 'hidden'}}>
         <span ref={spanRef}>{'M'.repeat(charCount)}</span>
     </div>
   );
