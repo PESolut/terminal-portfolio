@@ -6,7 +6,6 @@ const Terminal: React.FC = () => {
   return (
     <div className="terminal">
         <NavBar/>
-
     </div>
   );
 };

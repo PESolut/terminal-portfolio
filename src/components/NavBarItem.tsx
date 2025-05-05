@@ -1,4 +1,6 @@
 import React from "react";
+import "./NavBarItem.css";
+
 
 export type NavigationProps = {
     name: string;
@@ -10,9 +12,8 @@ export type NavigationProps = {
 
 const NavBarItem: React.FC<NavigationProps> = ({ name, path, isActive, onClick, icon }) => {
   return (
-    <div className="navbar">
-        <h1>{name}</h1>
-        
+    <div className="navbaritem">
+        <h1>{name}</h1>  
     </div>
   );
 };
