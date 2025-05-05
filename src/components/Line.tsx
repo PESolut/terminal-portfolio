@@ -2,17 +2,25 @@ import React from "react";
 
 export type LineProps = {
     text?: string,
-    limit?: number,
+    limit?: number | null,
     type?: string,
 };
 
-const Line: React.FC<LineProps> = ({text}) => {
+const Line: React.FC<LineProps> = ({text = '', limit, type = 'user'}) => {
+    const effectiveLimit = (limit ?? 80) - 3;  // Subtract 3 from charLimit
+    const chunks = text.match(new RegExp(`.{1,${effectiveLimit}}`, 'g')) || [];
+
 
 
   return (
-    <div className="line">
-        <h2>{`> `} {text}</h2>
-    </div>
+    <>
+      {chunks.map((chunk, i) => (
+        <div key={i} className="line">
+          <span className="prompt">{type === "user" ? ">" : ""}</span>
+          {chunk}
+        </div>
+      ))}
+    </>
   );
 };
 
