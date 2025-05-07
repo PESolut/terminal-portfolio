@@ -7,7 +7,7 @@ export type LineProps = {
 };
 
 const Line: React.FC<LineProps> = ({text = '', limit, type = 'user'}) => {
-    const effectiveLimit = (limit ?? 80) - 3;  // Subtract 3 from charLimit
+    const effectiveLimit = (limit ?? 80) - 3; 
     const chunks = text.match(new RegExp(`.{1,${effectiveLimit}}`, 'g')) || [];
 
 

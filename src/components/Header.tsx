@@ -15,6 +15,7 @@ const Header: React.FC<HeaderProps> = ({name ='Jahaad Petty', username='pesolut'
   return (
     <div className="header">
         <h1>{username}:$</h1>
+        
     </div>
   );
 };
