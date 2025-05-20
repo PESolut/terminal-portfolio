@@ -1,57 +1,83 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import NavBar from "./NavBar";
 import "./Terminal.css";
 import Header from "./Header";
 import Line from "./Line";
 import Ruler from "./Ruler";
+import { Line as LineType } from '../types/terminal';
 
-type LineData = {
-  text: string;
-  type: "animated" | "user";
-};
+interface TerminalProps {
+    lines: LineType[];
+    charLimit?: number;
+}
 
-const Terminal: React.FC = () => {
-  const [charLimit, setCharLimit] = useState<number | null>(null)
-  const [lines, setLines] = useState<LineData[]>([])
+const Terminal: React.FC<TerminalProps> = ({ lines = [], charLimit: initialCharLimit = 80 }) => {
+    const [visibleLines, setVisibleLines] = useState<LineType[]>([]);
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [isAnimating, setIsAnimating] = useState(false);
+    const [charLimit, setCharLimit] = useState(initialCharLimit);
+    const animationCompleteRef = useRef<(() => void) | null>(null);
+    const linesRef = useRef<LineType[]>(lines);
+    
+    useEffect(() => {
+        linesRef.current = lines;
+    }, [lines]);
 
-  useEffect(() => {
-    const initialLines: LineData[] = [
-      { text: "Initializing virtual interface...", type: "animated" },
-      { text: "Loading kernel modules...", type: "animated" },
-      { text: "Establishing encrypted link...", type: "animated" },
-      { text: "Authenticating session...", type: "animated" },
-      { text: "Welcome to Gridlock CLI.", type: "animated" },
-    ];
-    setLines(initialLines);
+    useEffect(() => {
+        setVisibleLines([]);
+        setCurrentIndex(0);
+        setIsAnimating(false);
+    }, [lines]);
 
-    const testLines: LineData[] = [
-      // { text: `${'M'.repeat(2343)}`, type: "animated" },
-    ];
-    setLines(prevLines => [...prevLines, ...testLines])
-  }, []);
-  
+    const handleAnimationComplete = useCallback(() => {
+        setIsAnimating(false);
+        setCurrentIndex(prev => prev + 1);
+        animationCompleteRef.current = null;
+    }, []);
 
-  return (
-    <div className="terminal">
-      <Ruler onMeasure={setCharLimit}/>
-      <NavBar/>
-      <Header/>
-      <div className="terminal-lines">
-        {lines.map((line, idx) => (
-          <Line
-          key={idx}
-          text={line.text}
-          type={line.type}
-          limit={charLimit}
-          />
-  ))}
-</div>
-      {/* <Line/>
-      <Line/> */}
+    useEffect(() => {
+        if (!linesRef.current || currentIndex >= linesRef.current.length || isAnimating) return;
 
+        const currentLine = linesRef.current[currentIndex];
+        if (!currentLine) return;
 
-    </div>
-  );
+        setVisibleLines(prev => [...prev, currentLine]);
+
+        if (currentLine.type === 'animated') {
+            setIsAnimating(true);
+            animationCompleteRef.current = handleAnimationComplete;
+        } else {
+            setTimeout(() => {
+                setCurrentIndex(prev => prev + 1);
+            }, 0);
+        }
+    }, [currentIndex, isAnimating, handleAnimationComplete]);
+
+    return (
+        <div className="terminal">
+            <Ruler onMeasure={setCharLimit}/>
+            <NavBar/>
+            <Header/>
+            <div className="terminal-lines">
+                {visibleLines.map((line, idx) => {
+                    const isLastLine = idx === visibleLines.length - 1;
+                    const callback = isLastLine && line.type === 'animated' && animationCompleteRef.current 
+                        ? animationCompleteRef.current 
+                        : undefined;
+                    
+                    return (
+                        <Line
+                            key={`line-${idx}`}
+                            text={line.text}
+                            type={line.type}
+                            limit={charLimit}
+                            onAnimationComplete={callback}
+                        />
+                    );
+                })}
+            </div>
+        </div>
+    );
 };
 
 export default Terminal;
