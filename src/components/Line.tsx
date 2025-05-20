@@ -1,27 +1,25 @@
 import React from "react";
+import { LineProps } from '../types/components';
+import AnimatedLine from './AnimatedLine';
 
-export type LineProps = {
-    text?: string,
-    limit?: number | null,
-    type?: string,
-};
+const Line: React.FC<LineProps> = ({text = '', limit, type = 'user', onAnimationComplete}) => {
+    if (type === 'animated') {
+        return <AnimatedLine text={text} limit={limit} type="system" onAnimationComplete={onAnimationComplete} />;
+    }
 
-const Line: React.FC<LineProps> = ({text = '', limit, type = 'user'}) => {
-    const effectiveLimit = (limit ?? 80) - 3; 
+    const effectiveLimit = (limit ?? 80) - 3;
     const chunks = text.match(new RegExp(`.{1,${effectiveLimit}}`, 'g')) || [];
 
-
-
-  return (
-    <>
-      {chunks.map((chunk, i) => (
-        <div key={i} className="line">
-          <span className="prompt">{type === "user" ? ">" : ""}</span>
-          {chunk}
-        </div>
-      ))}
-    </>
-  );
+    return (
+        <>
+            {chunks.map((chunk, i) => (
+                <div key={i} className="line">
+                    <span className="prompt">{type === "user" ? ">" : ""}</span>
+                    {chunk}
+                </div>
+            ))}
+        </>
+    );
 };
 
 export default Line;
